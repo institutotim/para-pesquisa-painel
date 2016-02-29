@@ -1,0 +1,17 @@
+
+{
+  "GLOBAL_STATISTICS": "Estatísticas Globais",
+  "FROM_SURVEY": "Estatísticas do questionário \"{{ form_name }}\"",
+  "FROM_USER_WITH_SURVEY": "Estatísticas do usuário \"{{ user_name }}\" no questionário \"{{ form_name }}\"",
+  "FROM_USER": "Estatísticas do usuário \"{{ user_name }}\" (Todos os Formulários)",
+  "STATUS_APPROVED": "aprovados",
+  "STATUS_PENDING_APPROVAL": "aguardando aprovação",
+  "STATUS_PENDING_CORRECTION": "aguardando correção",
+  "STATUS_PENDING_RESCHEDULE": "reagendado",
+  "STATUS_CANCELED": "cancelado",
+  "TOTAL_ANSWERS": "Total de pesquisas",
+  "TOTAL_COMPLETED_ANSWERS": "Total de pesquisas preenchidas",
+  "TOTAL_NOT_STARTED_ANSWERS": "Pesquisas não iniciadas",
+  "TOTAL_SURVEYS": "Número de questionários",
+  "TOTAL_USERS": "Número de usuários"
+}

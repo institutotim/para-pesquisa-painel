@@ -1,0 +1,127 @@
+<div class="box submissions">
+	<div class="title">
+		{{ 'SURVEYS_TITLE' | translate }}
+
+		<div class="btn btn-default btn-header pull-right">
+			{{ 'SURVEYS_COUT' | translate: { cout: cout } }}
+		</div>
+
+		<div class="input-group search" rel="tooltip" title="Digite no campo e clique na lupa para pesquisar no conteúdo abaixo">
+			<input type="text" class="form-control" ng-model="q" placeholder="Procurar...">
+
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div>
+	</div>
+
+	<div class="content">
+		<table class="table custom table-striped table-hover" infinite-scroll="fetchSubmissions()" infinite-scroll-distance="2">
+			<thead>
+				<tr>
+					<th>{{ 'IDENTIFIER' | translate }}</th>
+					<th>{{ 'RESEARCHER' | translate }}</th>
+					<th>{{ 'CREATED_AT' | translate }}</th>
+					<th style="width: 17%">{{ 'CHANGE_STATUS' | translate }}</th>
+					<th style="width: 17%">{{ 'ACTIONS' | translate }}</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="submission in submissions | filter:q" submission-item>
+					<!--<td>{{ submission.id }}</td>-->
+					<td>{{ submission.identifier }} <span class="label" ng-class="{'label-warning': submission.status == 'waiting_correction' || submission.status == 'waiting_approval', 'label-success': submission.status == 'approved', 'label-info': submission.status == 'new' || submission.status == 'rescheduled', 'label-danger' : submission.status == 'canceled' }">
+						<span ng-show="submission.status == 'new'">{{ 'STATUS_NEW' | translate }}</span>
+						<span ng-show="submission.status == 'canceled'">{{ 'STATUS_CANCELED' | translate }} ({{ submission.stop_reason }})</span>
+						<span ng-show="submission.status == 'waiting_approval'">{{ 'STATUS_PENDING_APPROVAL' | translate }}</span>
+						<span ng-show="submission.status == 'waiting_correction'">{{ 'STATUS_PENDING_CORRECTION' | translate }}</span>
+						<span ng-show="submission.status == 'approved'">{{ 'STATUS_APPROVED' | translate }}</span>
+						<span ng-show="submission.status == 'rescheduled'">{{ 'STATUS_RESCHEDULED' | translate }} ({{ submission.stop_reason }})</span>
+					</span></td>
+					<td>{{ submission.owner.name }}</td>
+					<td>{{ submission.created_at | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+					<!--<td>{{ started_date | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+					<td>{{ started_by }}</td>-->
+					<td>
+						<div class="btn-group">
+							<a class="btn btn-primary btn-sm" ng-class="{active: submission.status == 'waiting_approval' }" rel="tooltip" title="{{ 'STATUS_PENDING_APPROVAL' | translate }}" ng-click="changeStatus('waiting_approval')"><span class="glyphicon glyphicon-transfer"></a>
+							<a class="btn btn-primary btn-sm" ng-class="{active: submission.status == 'canceled' }" rel="tooltip" title="{{ 'STATUS_CANCELED' | translate }}" ng-click="changeStatus('canceled')"><span class="glyphicon glyphicon-remove-circle"></span></a></li>
+							<a class="btn btn-primary btn-sm" ng-class="{active: submission.status == 'approved' }" rel="tooltip" title="{{ 'STATUS_APPROVED' | translate }}" ng-click="changeStatus('approved')"><span class="glyphicon glyphicon-ok"></a></li>
+						</div>
+					</td>
+
+					<td>
+						<div class="btn-group">
+							<a href="#/forms/edit/{{ form.id }}/submissions/{{ submission.id }}" rel="tooltip" title="{{ 'SHOW_SURVEY' | translate }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-align-left"></span></a>
+							<a href="" rel="tooltip" title="{{ 'RESET_SURVEY' | translate }}" class="btn btn-info btn-sm" ng-click="reset()"><span class="glyphicon glyphicon-repeat" ></span></a>
+							<a data-toggle="modal" ng-click="selectSubmissionToDelete(submission.id)" rel="tooltip" title="{{ 'REMOVE' | translate }}" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-trash"></span></a></li>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p class="scrolling_status" ng-show="waiting">{{ 'LOADING_SURVEYS' | translate }}</p>
+		<p class="scrolling_status" ng-show="end">{{ 'ALL_SURVEYS_WERE_LOADED' | translate }}</p>
+		<p class="scrolling_status" ng-show="submissions.length == 0">{{ 'NO_SURVEYS_FOUND' | translate }}</p>
+	</div>
+</div>
+
+<sidebar>
+	<div class="sidemenu">
+		<div class="content">
+			<div class="form-group">
+				<label for="search_by_user">{{ 'USER_NAME' | translate }}</label>
+				<input type="text" id="search_by_user" class="form-control" placeholder="{{ 'SEARCH_WITH_ELLIPSIS' | translate }}" ng-show="enable_search_by_user" filter-autocomplete>
+
+				<div class="list-group-item" ng-hide="enable_search_by_user">
+					<span class="badge badge-danger" style="cursor: pointer" ng-click="removeUser()"><span class="glyphicon glyphicon-remove"></span></span>
+					{{ user_name }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="sidemenu">
+		<ul>
+			<li ng-class="{active: status == 'rescheduled'}"><a href="" ng-click="applyStatusFilter('rescheduled')">{{ 'FILTER_RESCHEDULED' | translate }}</a></li>
+			<li ng-class="{active: status == 'canceled'}"><a href="" ng-click="applyStatusFilter('canceled')">{{ 'FILTER_CANCELED' | translate }}</a></li>
+			<li ng-class="{active: status == 'waiting_correction'}"><a href="" ng-click="applyStatusFilter('waiting_correction')">{{ 'FILTER_PENDING_CORRECTION' | translate }}</a></li>
+			<li ng-class="{active: status == 'waiting_approval'}"><a href="" ng-click="applyStatusFilter('waiting_approval')">{{ 'FILTER_PENDING_APPROVAL' | translate }}</a></li>
+			<li ng-class="{active: status == 'approved'}"><a href="" ng-click="applyStatusFilter('approved')">{{ 'FILTER_APPROVED' | translate }}</a></li>
+			<li ng-class="{active: status == 'new'}"><a href="" ng-click="applyStatusFilter('new')">{{ 'FILTER_NEW' | translate }}</a></li>
+			<li class="divider"></li>
+			<li ng-class="{active: status == null}"><a href="" ng-click="applyStatusFilter(null)">{{ 'FILTER_ALL' | translate }}</a></li>
+		</ul>
+	</div>
+
+	<div class="sidemenu">
+		<ul>
+			<li ng-class="{active: period == 'today'}"><a href="" ng-click="applyDateFilter('today')">{{ 'TODAY' | translate }}</a></li>
+			<li ng-class="{active: period == 'this_week'}"><a href="" ng-click="applyDateFilter('this_week')">{{ 'THIS_WEEK' | translate }}</a></li>
+			<li ng-class="{active: period == 'this_month'}"><a href="" ng-click="applyDateFilter('this_month')">{{ 'THIS_MONTH' | translate }}</a></li>
+			<li ng-class="{active: period == 'this_year'}"><a href="" ng-click="applyDateFilter('this_year')">{{ 'THIS_YEAR' | translate }}</a></li>
+			<li ng-class="{active: period == 'custom'}"><a href="" ng-click="applyDateFilter('custom')">{{ 'BY_PERIOD' | translate }}</a></li>
+			<li class="divider"></li>
+			<li ng-class="{active: period == null}"><a href="" ng-click="applyDateFilter(null)">{{ 'FILTER_ALL' | translate }}</a></li>
+		</ul>
+	</div>
+
+	<div class="sidemenu" ng-show="custom_date_search">
+		<div class="content">
+			<div class="input-group">
+				<input type="text" ng-model="created_from" class="form-control" placeholder="{{ 'FROM' | translate }}" ui-date="dateOptions" ui-date-format translate-ui-date />
+
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-arrow-right"></span>
+				</span>
+
+				<input type="text" ng-model="created_to" class="form-control" placeholder="{{ 'TO' | translate }}" ui-date="dateOptions" ui-date-format translate-ui-date />
+			</div>
+		</div>
+	</div>
+</sidebar>
+
+<delete-modal id="deleteModal" callback="deleteSubmission()">{{ 'CONFIRM_REMOVE_SURVEY' | translate }}</delete-modal>

@@ -1,0 +1,314 @@
+<div class="box">
+	<div class="title" translate="TITLE">
+
+
+		<a href="" ng-click="update()" class="btn btn-default btn-header pull-right"><span class="glyphicon glyphicon-refresh"></span></a>
+	</div>
+
+	<div class="content">
+		<table class="table custom table-striped table-hover">
+			<thead>
+				<tr>
+					<th translate="TYPE"></th>
+					<th translate="LAST_EXPORT"></th>
+					<th style="width: 22%"></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-hide="last_answers_export == null">
+					<td translate="ANSWERS"></td>
+					<td translate="ANSWERS_LAST_EXPORT_AT" translate-values="{lastAnswersExportDate: last_answers_export.date }"></td>
+					<td>
+						<div class="btn-group">
+							<a href="{{ last_answers_export.url }}" class="btn btn-info" rel="tooltip" title="Baixar"><span class="glyphicon glyphicon-cloud-download"></span></a>
+						</div>
+					</td>
+				</tr>
+
+				<tr ng-hide="last_submissions_export == null">
+					<td translate="SUBMISSIONS"></td>
+					<td translate="SUBMISSIONS_LAST_EXPORT_AT" translate-values="{ lastSubmissionsExportDate: last_submissions_export.date }"></td>
+					<td>
+						<div class="btn-group">
+							<a href="{{ last_submissions_export.url }}" class="btn btn-info" rel="tooltip" title="Baixar"><span class="glyphicon glyphicon-cloud-download"></span></a>
+						</div>
+					</td>
+				</tr>
+
+				<tr ng-hide="last_users_export == null">
+					<td translate="USERS"></td>
+					<td translate="USERS_LAST_EXPORT_AT" translate-values="{ lastUsersExportDate: last_users_export.date }" ></td>
+					<td>
+						<div class="btn-group">
+							<a href="{{ last_users_export.url }}" class="btn btn-info" rel="tooltip" title="Baixar"><span class="glyphicon glyphicon-cloud-download"></span></a>
+						</div>
+					</td>
+				</tr>
+
+				<tr ng-hide="last_forms_export == null">
+					<td translate="SURVEY"></td>
+					<td translate="SURVEY_LAST_EXPORT_AT" translate-values="{ lastFormsExportDate: last_forms_export.date }" ></td>
+					<td>
+						<div class="btn-group">
+							<a href="{{ last_forms_export.url }}" class="btn btn-info" rel="tooltip" title="Baixar"><span class="glyphicon glyphicon-cloud-download"></span></a>
+						</div>
+					</td>
+				</tr>
+
+				<tr ng-hide="last_fields_export == null">
+					<td translate="FIELDS"></td>
+					<td translate="FIELDS_LAST_EXPORT_AT" translate-values="{lastFieldsExportDate: last_fields_export.date }"></td>
+					<td>
+						<div class="btn-group">
+							<a href="{{ last_fields_export.url }}" class="btn btn-info" rel="tooltip" title="Baixar"><span class="glyphicon glyphicon-cloud-download"></span></a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div ng-show="progress.complete == true" class="alert alert-success" style="margin-top: 20px;" translate="SUCCESS" translate-values="{url: progress.url}">
+
+</div>
+
+<div class="box" ng-hide="job_id == null">
+	<div class="title" translate="EXPORT_IN_PROGRESS">
+
+	</div>
+
+	<div class="content">
+		<div class="progress progress-striped active">
+			<div class="progress-bar"  role="progressbar" aria-valuenow="{{ progress.current }}" aria-valuemin="0" aria-valuemax="{{ progress.total }}" ng-style="{ width: (progress.current / progress.total) * 100 + '%'}">
+				<span class="sr-only" translate="PROGRESS" translate-values="{onGoing:  (progress.current / progress.total) * 100 }"></span>
+			</div>
+		</div>
+
+		<div ng-hide="progress.current == 0 && progress.total == 0" class="alert alert-info" translate="WAIT" translate-values="{current: progress.current, total: progress.total}">
+
+		</div>
+
+		<div ng-show="progress.current == 0 && progress.total == 0" class="alert alert-success" translate="DONE">
+
+		</div>
+
+		<div ng-show="progress.current != 0 && progress.complete == false && (progress.total == progress.current)" class="alert alert-warning" translate="SENDING">
+
+		</div>
+	</div>
+</div>
+<div class="box" ng-show="job_id == null">
+	<div class="title">
+		{{ 'NEW_EXPORT' | translate }}
+	</div>
+	<div class="content">
+
+
+		<div class="btn-group btn-group-justified">
+			<a type="button" class="btn btn-default" ng-class="{active: method == 'users'}" ng-click="changeMethod('users')" translate="USERS"></a>
+			<a type="button" class="btn btn-default" ng-class="{active: method == 'forms'}" ng-click="changeMethod('forms')" translate="SURVEY"></a>
+			<a type="button" class="btn btn-default" ng-class="{active: method == 'fields'}" ng-click="changeMethod('fields')" translate="FIELDS"></a>
+			<a type="button" class="btn btn-default" ng-class="{active: method == 'submissions'}" ng-click="changeMethod('submissions')" translate="SUBMISSIONS"></a>
+			<a type="button" class="btn btn-default" ng-class="{active: method == 'answers'}" ng-click="changeMethod('answers')" translate="ANSWERS"></a>
+		</div>
+
+		<div ng-show="method == 'users'">
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-md-6">
+					<div class="sidemenu" style="background: #fcfcfb">
+						<div class="content">
+							<select ng-model="role" class="form-control">
+								<option value="">{{ 'ALL' | translate }}</option>
+								<option value="api">{{ 'ROLE_ADMINISTRATOR' | translate }}</option>
+								<option value="mod">{{ 'ROLE_COORDINATOR' | translate }}</option>
+								<option value="agent">{{ 'ROLE_RESEARCHER' | translate }}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="sidemenu" style="background: #fcfcfb">
+						<div class="content">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" ng-model="include_header">
+									{{ 'INCLUDE_HEADERS' | translate }}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<a href="" ng-click="export()" class="btn btn-info btn-block" style="margin-top: 10px;">{{ 'EXPORT_ALL_USERS' | translate }}</a>
+		</div>
+
+		<div ng-show="method == 'forms'">
+
+			<div class="sidemenu" style="background: #fcfcfb">
+				<div class="content">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="include_header">
+							{{ 'INCLUDE_HEADERS' | translate }}
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<a href="" ng-click="export()" class="btn btn-info btn-block" style="margin-top: 10px;">{{ 'EXPORT_ALL_FORMS' | translate }}</a>
+		</div>
+
+		<div ng-show="method == 'fields'">
+			<div class="sidemenu" style="background: #fcfcfb">
+				<div class="content">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="include_header">
+							{{ 'INCLUDE_HEADERS' | translate }}
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<a href="" ng-click="export()" class="btn btn-info btn-block" style="margin-top: 10px;">{{ 'EXPORT_ALL_FIELDS' | translate }}</a>
+		</div>
+
+		<div ng-show="method == 'submissions'">
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-md-6">
+					<div class="sidemenu" style="background: #fcfcfb">
+						<div class="content">
+							<select ng-model="form_id" ng-options="f.id as f.name for f in forms" class="form-control">
+							</select>
+						</div>
+					</div>
+
+					<div class="sidemenu" style="background: #fcfcfb">
+						<ul>
+							<li ng-class="{active: status == 'rescheduled'}"><a href="" ng-click="selectStatusFilter('rescheduled')">{{ 'FILTER_RESCHEDULED' | translate }}</a></li>
+							<li ng-class="{active: status == 'canceled'}"><a href="" ng-click="selectStatusFilter('canceled')">{{ 'FILTER_CANCELED' | translate }}</a></li>
+							<li ng-class="{active: status == 'waiting_correction'}"><a href="" ng-click="selectStatusFilter('waiting_correction')">{{ 'FILTER_PENDING_CORRECTION' | translate }}</a></li>
+							<li ng-class="{active: status == 'waiting_approval'}"><a href="" ng-click="selectStatusFilter('waiting_approval')">{{ 'FILTER_PENDING_APPROVAL' | translate }}</a></li>
+							<li ng-class="{active: status == 'approved'}"><a href="" ng-click="selectStatusFilter('approved')">{{ 'FILTER_APPROVED' | translate }}</a></li>
+							<li ng-class="{active: status == 'new'}"><a href="" ng-click="selectStatusFilter('new')">{{ 'FILTER_NEW' | translate }}</a></li>
+							<li class="divider"></li>
+							<li ng-class="{active: status == null}"><a href="" ng-click="selectStatusFilter(null)">{{ 'FILTER_ALL' | translate }}</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="sidemenu" style="background: #fcfcfb">
+						<ul>
+							<li ng-class="{active: period == 'today'}"><a href="" ng-click="selectDateFilter('today')">{{ 'TODAY' | translate }}</a></li>
+							<li ng-class="{active: period == 'this_week'}"><a href="" ng-click="selectDateFilter('this_week')">{{ 'THIS_WEEK' | translate }}</a></li>
+							<li ng-class="{active: period == 'this_month'}"><a href="" ng-click="selectDateFilter('this_month')">{{ 'THIS_MONTH' | translate }}</a></li>
+							<li ng-class="{active: period == 'this_year'}"><a href="" ng-click="selectDateFilter('this_year')">{{ 'THIS_YEAR' | translate }}</a></li>
+							<li ng-class="{active: period == 'custom'}"><a href="" ng-click="selectDateFilter('custom')">{{ 'BY_PERIOD' | translate }}</a></li>
+							<li class="divider"></li>
+							<li ng-class="{active: period == null}"><a href="" ng-click="selectDateFilter(null)">{{ 'FILTER_ALL' | translate }}</a></li>
+						</ul>
+					</div>
+
+					<div class="sidemenu" ng-show="custom_date_search" style="background: #fcfcfb">
+						<div class="content">
+							<div class="input-group">
+								<input type="text" ng-model="created_from" class="form-control" placeholder="{{ 'FROM' | translate }}" ui-date="dateOptions" ui-date-format translate-ui-date />
+
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-arrow-right"></span>
+								</span>
+
+								<input type="text" ng-model="created_to" class="form-control" placeholder="{{ 'TO' | translate }}" ui-date="dateOptions" ui-date-format translate-ui-date />
+							</div>
+						</div>
+					</div>
+
+					<div class="sidemenu" style="background: #fcfcfb">
+						<div class="content">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" ng-model="include_header">
+									{{ 'INCLUDE_HEADERS' | translate }}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<a href="" ng-click="export()" class="btn btn-info btn-block" style="margin-top: 10px;">{{ 'EXPORT_DATA' | translate }}</a>
+		</div>
+
+		<div ng-show="method == 'answers'">
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-md-6">
+					<div class="sidemenu" style="background: #fcfcfb">
+						<div class="content">
+							<select ng-model="form_id" ng-options="f.id as f.name for f in forms" class="form-control">
+							</select>
+						</div>
+					</div>
+
+					<div class="sidemenu" style="background: #fcfcfb">
+						<ul>
+							<li ng-class="{active: status == 'rescheduled'}"><a href="" ng-click="selectStatusFilter('rescheduled')">{{ 'FILTER_RESCHEDULED' | translate }}</a></li>
+							<li ng-class="{active: status == 'canceled'}"><a href="" ng-click="selectStatusFilter('canceled')">{{ 'FILTER_CANCELED' | translate }}</a></li>
+							<li ng-class="{active: status == 'waiting_correction'}"><a href="" ng-click="selectStatusFilter('waiting_correction')">{{ 'FILTER_PENDING_CORRECTION' | translate }}</a></li>
+							<li ng-class="{active: status == 'waiting_approval'}"><a href="" ng-click="selectStatusFilter('waiting_approval')">{{ 'FILTER_PENDING_APPROVAL' | translate }}</a></li>
+							<li ng-class="{active: status == 'approved'}"><a href="" ng-click="selectStatusFilter('approved')">{{ 'FILTER_APPROVED' | translate }}</a></li>
+							<li ng-class="{active: status == 'new'}"><a href="" ng-click="selectStatusFilter('new')">{{ 'FILTER_NEW' | translate }}</a></li>
+							<li class="divider"></li>
+							<li ng-class="{active: status == null}"><a href="" ng-click="selectStatusFilter(null)">{{ 'FILTER_ALL' | translate }}</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="sidemenu" style="background: #fcfcfb">
+						<ul>
+							<li ng-class="{active: period == 'today'}"><a href="" ng-click="selectDateFilter('today')">{{ 'TODAY' | translate }}</a></li>
+							<li ng-class="{active: period == 'this_week'}"><a href="" ng-click="selectDateFilter('this_week')">{{ 'THIS_WEEK' | translate }}</a></li>
+							<li ng-class="{active: period == 'this_month'}"><a href="" ng-click="selectDateFilter('this_month')">{{ 'THIS_MONTH' | translate }}</a></li>
+							<li ng-class="{active: period == 'this_year'}"><a href="" ng-click="selectDateFilter('this_year')">{{ 'THIS_YEAR' | translate }}</a></li>
+							<li ng-class="{active: period == 'custom'}"><a href="" ng-click="selectDateFilter('custom')">{{ 'BY_PERIOD' | translate }}</a></li>
+							<li class="divider"></li>
+							<li ng-class="{active: period == null}"><a href="" ng-click="selectDateFilter(null)">{{ 'FILTER_ALL' | translate }}</a></li>
+						</ul>
+					</div>
+
+					<div class="sidemenu" ng-show="custom_date_search" style="background: #fcfcfb">
+						<div class="content">
+							<div class="input-group">
+								<input type="text" ng-model="created_from" class="form-control" placeholder="{{ 'FROM' | translate }}" ui-date="dateOptions" ui-date-format translate-ui-date />
+
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-arrow-right"></span>
+								</span>
+
+								<input type="text" ng-model="created_to" class="form-control" placeholder="{{ 'TO' | translate }}" ui-date="dateOptions" ui-date-format translate-ui-date />
+							</div>
+						</div>
+					</div>
+
+					<div class="sidemenu" style="background: #fcfcfb">
+						<div class="content">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" ng-model="include_header">
+									{{ 'INCLUDE_HEADERS' | translate }}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<a href="" ng-click="export()" class="btn btn-info btn-block" style="margin-top: 10px;">{{ 'EXPORT_DATA' | translate }}</a>
+		</div>
+	</div>
+</div>

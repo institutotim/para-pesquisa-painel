@@ -1,0 +1,21 @@
+{
+	"MENU_HOME": "Dashboard",
+	"MENU_SURVEYS": "Forms",
+	"MENU_USERS": "Users",
+	"MENU_SETTINGS": "Settings",
+	"MENU_LOG": "Logs",
+	"MAIN_LOADING": "Loading... Please wait.",
+	"USER_MENU_HELP": "Help",
+	"USER_MENU_EXPORT": "Export data",
+	"USER_MENU_SETTINGS": "My account",
+	"USER_MENU_LOGOUT": "Logout",
+
+	"MODAL_CONFIRM_REMOVAL": "Are you sure?!",
+	"MODAL_CONFIRM_REMOVAL_DESC": "If you are sure, type DELETE below and click on the red button.",
+	"MODAL_CANCEL": "Cancel",
+	"MODAL_REMOVE": "Remove",
+
+	"ROLE_ADMINISTRATOR": "Administrator",
+	"ROLE_COORDINATOR": "Coordinator",
+	"ROLE_RESEARCHER": "Researcher"
+}

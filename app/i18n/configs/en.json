@@ -1,0 +1,20 @@
+{
+  "GENERAL_CONFIG_TITLE": "Settings",
+  "APP_CONFIG_TITLE": "Mobile app settings",
+  "UPLOAD_IMAGE": "Send new picture",
+  "REMOVE_IMAGE": "Remove picture",
+  "SUCCESSFUL_CONFIGURATION": "Settings updated successfully.",
+  "FAILED_CONFIGURATION": "Oops! Error when updating.",
+  "HEADER_LINE_1": "Title line 1:",
+  "HEADER_LINE_2": "Title line 2:",
+  "SUBMIT": "Save",
+  "TABLE_TITLE": "Title",
+  "TABLE_SUBTITLE": "Subtitle",
+  "EN_LANG": "English",
+  "PT_LANG": "Brazilian Portuguese",
+  "CHOOSE_LANG": "Pick a language",
+  "TEXTS": "Texts",
+  "SEARCH": "Search...",
+  "EDIT": "Edit",
+  "REMOVE": "Remove"
+}

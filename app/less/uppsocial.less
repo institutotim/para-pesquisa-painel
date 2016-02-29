@@ -1,0 +1,35 @@
+// Import Twitter Bootstrap :)
+@import '../lib/bootstrap/less/bootstrap.less';
+
+// Setup font - Let's use Lato and Signika!
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Signika:400,300,600,700);
+
+// Now let's setup LESSHat
+@w3c: true; // Unprefixed W3C syntax
+@webkit: true; // Chrome 7+, Safari 5+, iOS5, Android
+@moz: true; //  Firefox 4+
+@opera: true; // Opera 10.5+
+@ms: true;  // IE 10+
+@oldWebkit: true; // iOS4, Safari 4, Chrome < 6.
+
+@import 'lesshat.less';
+
+// Let's configure some vars
+@import 'config.less';
+
+// All pages
+@import 'all.less';
+
+// Yay. To be a little bit more organized, let's setup by pages
+@import 'pages/default.less';
+@import 'pages/dashboard.less';
+@import 'pages/login.less';
+@import 'pages/forms.less';
+@import 'pages/user.less';
+@import 'pages/logs.less';
+@import 'pages/configs.less';
+@import 'pages/submissions.less';
+
+// And then... ngprogress! :D
+@import 'nprogress.less';

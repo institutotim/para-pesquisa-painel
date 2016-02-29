@@ -1,0 +1,80 @@
+<div class="box stats dashboard">
+	<span class="title">{{ title | translate: { user_name: user_name, form_name: form_name } }}</span>
+
+	<div class="content">
+
+		<div class="out">
+			<div class="charts">
+
+				<div class="chart approved">
+					<p>{{ 'STATUS_APPROVED' | translate }}</p>
+
+					<div class="inner">
+						<span>{{ approved }}</span>
+					</div>
+				</div>
+
+				<div class="chart waiting_approval">
+					<p>{{ 'STATUS_PENDING_APPROVAL' | translate }}</p>
+
+					<div class="inner">
+						<span>{{ waiting_approval }}</span>
+					</div>
+				</div>
+
+				<div class="chart waiting_correction">
+					<p>{{ 'STATUS_PENDING_CORRECTION' | translate }}</p>
+
+					<div class="inner">
+						<span>{{ waiting_correction }}</span>
+					</div>
+				</div>
+
+
+				<div class="chart reschdule">
+					<p>{{ 'STATUS_PENDING_RESCHEDULE' | translate }}</p>
+
+					<div class="inner">
+						<span>{{ rescheduled }}</span>
+					</div>
+				</div>
+
+				<div class="chart canceled">
+					<p>{{ 'STATUS_CANCELED' | translate }}</p>
+
+					<div class="inner">
+						<span>{{ canceled }}</span>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+
+				<div class="columns">
+					<div class="first_column">
+						<div ng-repeat="info in infos">
+							<div class="stripe {{ available_colors[info.color] }}"></div>
+						</div>
+					</div>
+
+					<div class="second_column">
+						<div ng-repeat="info in infos">
+							<div class="stripe {{ available_colors[info.color] }}"></div>
+						</div>
+					</div>
+
+					<div class="third_column">
+						<div ng-repeat="info in infos">
+							<div class="stripe {{ available_colors[info.color] }}"><p><span>{{ info.count }}</span> {{ info.name | translate }}</p></div>
+
+							<div class="arrow {{ available_colors[info.color] }}"></div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+</div>

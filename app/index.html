@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app="uppSocial">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title>Para Pesquisa</title>
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+		<link href="css/upp-social.min.css" rel="stylesheet" media="screen" />
+		<link href="lib/jquery-ui/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+		<script type="application/javascript" src="js/upp-social-bundle.js"></script>
+
+		<script type="text/javascript">
+		$(function() {
+			$('body').tooltip({
+				selector: '[rel=tooltip]'
+			});
+		});
+		</script>
+	</head>
+
+	<body ng-class="{true: 'login', false: 'default'}[showLogin]" ng-hide="renderingPage">
+		<div class="container first" ng-hide="showLogin">
+			<div class="left-column">
+					<ul class="menu">
+						<li nav-item class="first"><a href="#/dashboard"><span class="glyphicon glyphicon-home"></span> {{ 'MENU_HOME' | translate }}</a></li>
+						<li nav-item><a href="#/forms/list"><span class="glyphicon glyphicon-th-list"></span> {{ 'MENU_SURVEYS' | translate }}</a></li>
+						<li nav-item><a href="#/users"><span class="glyphicon glyphicon-user"></span> {{ 'MENU_USERS' | translate }}</a></li>
+						<li nav-item><a href="#/configs"><span class="glyphicon glyphicon-cog"></span> {{ 'MENU_SETTINGS' | translate }}</a></li>
+						<li nav-item class="last"><a href="#/logs"><span class="glyphicon glyphicon-bullhorn"></span> {{ 'MENU_LOG' | translate }}</a></li>
+					</ul>
+
+					<div class="clearfix"></div>
+
+					<ul class="submenu" ng-show="submenu.length">
+						<li ng-repeat="item in submenu" nav-item><a href="{{ item.url }}">{{ item.name }}</a></li>
+					</ul>
+
+					<div class="box" ng-show="showLoading">
+							<div class="content">
+								{{ 'MAIN_LOADING' | translate }}
+							</div>
+					</div>
+
+					<!-- content goes here :D -->
+					<div ng-view ng-hide="showLoading"></div>
+			</div>
+
+			<div class="right-column">
+				<div class="user-info">
+					<div class="about">
+						<a class="avatar" href="#"><span user-avatar avatar="user.avatar" type="background-image"></span></a>
+
+						<span class="desc">
+							<h2>{{ user.name }}</h2>
+							<h3>{{ user.role | roleName | translate }}</h3>
+						</span>
+
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="list">
+						<ul class="user-menu">
+							<li><a href="#">{{ 'USER_MENU_HELP' | translate }} <span class="glyphicon glyphicon-question-sign"></span></a></li>
+							<li><a href="#/exports">{{ 'USER_MENU_EXPORT' | translate }} <span class="glyphicon glyphicon-export"></span></a></li>
+							<li><a href="#/users/edit/{{ user.id }}">{{ 'USER_MENU_SETTINGS' | translate }} <span class="glyphicon glyphicon-wrench"></span></a></li>
+							<li><a href="#/user/logout">{{ 'USER_MENU_LOGOUT' | translate }} <span class="glyphicon glyphicon-eject"></span></a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="sidemenu" ng-show="sidemenu.values.length">
+					<ul>
+						<li ng-repeat="item in sidemenu" nav-item><a href="{{ item.url }}">{{ item.name }}</a></li>
+					</ul>
+				</div>
+
+				<div compile="sidebar"></div>
+			</div>
+		</div>
+
+		<div ng-switch on="showLogin">
+			<div ng-switch-when="true">
+				<div ng-view></div>
+			</div>
+		</div>
+	</body>
+</html>

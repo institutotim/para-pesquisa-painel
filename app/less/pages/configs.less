@@ -1,0 +1,28 @@
+.configs {
+	.header_upload {
+		.size(100%, 156px);
+		margin-bottom: 7px;
+		background: @grey;
+		border: 3px dotted @darker-grey;
+		.border-radius(10px);
+		text-align: center;
+		background-size: auto 100%;
+		background-repeat: no-repeat;
+		background-position: center center;
+
+		label {
+			.btn;
+			.btn-info;
+			margin-top: 60px;
+			.box-shadow(~'0 0 10px #FFF');
+		}
+
+		input {
+			display: none;
+		}
+
+		&.loading {
+			.opacity(0.3);
+		}
+	}
+}

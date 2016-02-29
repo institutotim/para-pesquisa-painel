@@ -1,0 +1,106 @@
+<div class="configs">
+	<div class="box" ng-show="showMessage">		
+		<div class="content">
+			<div class="alert alert-success" ng-show="showMessage == 'success'" style="margin-bottom: 0px">{{ 'SUCCESSFUL_CONFIGURATION' | translate }}</div>
+			<div class="alert alert-danger" ng-show="showMessage == 'error'" style="margin-bottom: 0px">{{ 'FAILED_CONFIGURATION' | translate }}</div>
+		</div>
+	</div>
+	
+	<div class="box">
+		<div class="title">{{'GENERAL_CONFIG_TITLE'|translate}}</div>
+		<div class="content">
+			<label for="languages">{{'CHOOSE_LANG'|translate}}</label>
+			<select name="" id="languages" ng-model="selectedLanguage" ng-options="lang.label | translate for (key, lang) in availableLanguages"></select>
+		</div>
+	</div>
+
+	<div class="box">
+		<div class="title">{{ 'APP_CONFIG_TITLE' | translate }}</div>
+
+		<div class="content">
+
+			<div class="header_upload" id="header_image">
+				<label for="send_header">{{ 'UPLOAD_IMAGE' | translate }} <span class="glyphicon glyphicon-cloud-upload"></span></label>
+				<input type="file" ng-file-select="onFileSelect($files)" accept=".jpg,.jpeg,.gif,.png" id="send_header">
+			</div>
+
+			<button class="btn btn-danger btn-xs pull-right" ng-click="removeImage()">{{ 'REMOVE_IMAGE' | translate }}</button>
+
+			<div class="clearfix"></div>
+
+			<form ng-submit="updateApplication()">
+				<div class="form-group">
+					<label for="header_line_1">{{ 'HEADER_LINE_1' | translate }}</label>
+					<input type="text" ng-model="application.title_line_1" class="form-control" id="header_line_1" required />
+				</div>
+
+				<div class="form-group">
+					<label for="header_line_2">{{ 'HEADER_LINE_2' | translate }}</label>
+					<input type="text" ng-model="application.title_line_2" class="form-control" id="header_line_2" required />
+				</div>
+
+				<button class="btn btn-info pull-right" type="submit">{{ 'SUBMIT' | translate }}</button>
+
+				<div class="clearfix"></div>
+			</form>
+
+		</div>
+	</div>
+
+	<div class="box">
+		<div class="title">
+			{{ 'TEXTS' | translate }}
+
+			<a href="#/texts/create" class="btn btn-default btn-header"><span class="glyphicon glyphicon-plus"></span></a>
+
+			<div class="input-group search">
+				<input type="text" class="form-control" ng-model="q" placeholder="{{ 'SEARCH' | translate }}">
+
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="button">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div>
+		</div>
+
+		<div class="content">
+			<table class="table custom table-striped table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>{{ 'TABLE_TITLE' | translate }}</th>
+						<th>{{ 'TABLE_SUBTITLE' | translate }}</th>
+						<th style="width: 22%"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr ng-repeat="text in texts | filter:q">
+						<td>{{ text.id }}</td>
+						<td>{{ text.title }}</td>
+						<td>{{ text.subtitle }}</td>
+						<td>
+							<div class="btn-group">
+								<a href="#/texts/edit/{{ text.id }}" class="btn btn-info" rel="tooltip" title="{{ 'EDIT' | translate }}"><span class="glyphicon glyphicon-edit"></span></a>
+								<a href="#/texts/delete/{{ text.id }}" class="btn btn-info" rel="tooltip" title="{{ 'REMOVE' | translate }}"><span class="glyphicon glyphicon-trash"></span></a></li>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!--
+<ul class="pagination custom">
+	<li class="disabled"><a href="#">&laquo;</a></li>
+	<li class="active"><a href="#">1</a></li>
+	<li><a href="#">2</a></li>
+	<li><a href="#">3</a></li>
+	<li><a href="#">4</a></li>
+	<li><a href="#">5</a></li>
+	<li><a href="#">&raquo;</a></li>
+</ul>
+-->

@@ -1,0 +1,17 @@
+{
+	"LOGS": "System logs",
+	"PERIOD": "Period",
+	"BY_USER": "By user",
+	"SEARCH_USER": "Search user...",
+	"RESULS": "results found",
+	"WITH_MOTIVE": "with the motive",
+	"OF_USER": "from user",
+	"LOADING_FEED": "Loading feed...",
+	"ALL_LOADED": "All the entries were loaded.",
+	"TODAY": "Today",
+	"THIS_WEEK": "This week",
+	"THIS_MONTH": "This month",
+	"THIS_YEAR": "This year",
+	"BY_PERIOD": "By period",
+	"FILTER_ALL": "All time"
+}

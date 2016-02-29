@@ -1,0 +1,21 @@
+{
+	"MENU_HOME": "Dashboard",
+	"MENU_SURVEYS": "Questionários",
+	"MENU_USERS": "Usuários",
+	"MENU_SETTINGS": "Configurações",
+	"MENU_LOG": "Histórico",
+	"MAIN_LOADING": "Carregando... Aguarde alguns instantes!",
+	"USER_MENU_HELP": "Ajuda",
+	"USER_MENU_EXPORT": "Exportar dados",
+	"USER_MENU_SETTINGS": "Ajustes",
+	"USER_MENU_LOGOUT": "Sair",
+
+	"MODAL_CONFIRM_REMOVAL": "Você tem certeza?!",
+	"MODAL_CONFIRM_REMOVAL_DESC": "Se você tem certeza, digite abaixo a palavra DELETAR e clique no botão Remover.",
+	"MODAL_CANCEL": "Cancelar",
+	"MODAL_REMOVE": "Remover",
+
+	"ROLE_ADMINISTRATOR": "Administrador",
+	"ROLE_COORDINATOR": "Coordenador",
+	"ROLE_RESEARCHER": "Pesquisador"
+}

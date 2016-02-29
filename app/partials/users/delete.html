@@ -1,0 +1,18 @@
+<form name="form" novalidate>
+	<div class="box">
+		<div class="title">
+			{{ 'EDIT_USER' | translate }}
+		</div>
+
+		<div class="content">
+			<div class="alert alert-success" ng-show="showMessage == 'success'">{{ 'USER_REMOVED' | translate }}</div>
+
+			<div ng-hide="showMessage">
+				<p>{{ 'CONFIRM_USER_REMOVAL' | translate }}</p>
+
+				<div class="submit_container">
+					<button ng-click="deleteUser()" type="submit" class="btn btn-primary">{{ 'SEND' | translate }}</button>
+				</div>
+			</div>
+	</div>
+</form>

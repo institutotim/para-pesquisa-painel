@@ -1,0 +1,40 @@
+<div class="box">
+	<div class="title">
+		{{ 'USERS_IN_THE_FORM' | translate }}
+	</div>
+
+	<div class="content">
+		<table class="table custom table-striped table-hover" infinite-scroll="fetchAssignments()" infinite-scroll-distance="2">
+			<thead>
+				<tr>
+					<th>{{ 'RESEARCHERS' | translate }}</th>
+					<th></th>
+					<th>{{ 'COORDINATORS' | translate }}</th>
+					<th></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="assignment in assignments">
+					<td>{{ assignment.user.name }}</td>
+					<td>
+						<a href="#/forms/edit/{{ form_id }}/users/{{ assignment.user.id }}/statistics" class="btn btn-info" rel="tooltip" title="{{ 'VIEW_RESEARCHER_STATISTICS' | translate }}"><span class="glyphicon glyphicon-stats"></span></a>
+						
+						<a data-toggle="modal" href="" ng-click="$parent.transfer_info = {id: assignment.user.id, name: assignment.user.name};openTransferModal();" class="btn btn-info" rel="tooltip" title="{{ 'TRANSFER_SURVEYS' | translate }}"><span class="glyphicon glyphicon-transfer"></span></a>
+					</td>
+					<td ng-hide="assignment.moderator == null">{{ assignment.moderator.name }}</td>
+					<td ng-hide="assignment.moderator == null">
+						<a href="#/forms/edit/{{ form_id }}/users/{{ assignment.moderator.id }}/statistics" class="btn btn-info" rel="tooltip" title="{{ 'VIEW_COORDINATOR_STATISTICS' | translate }}"><span class="glyphicon glyphicon-stats"></span></a>
+						
+						<a data-toggle="modal" href="" ng-click="$parent.transfer_info = {id: assignment.moderator.id, name: assignment.moderator.name};openTransferModal();" class="btn btn-info" rel="tooltip" title="{{ 'TRANSFER_SURVEYS' | translate }}"><span class="glyphicon glyphicon-transfer"></span></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p class="scrolling_status" ng-show="waiting">{{ 'LOADING_USERS' | translate }}</p>
+		<p class="scrolling_status" ng-show="end">{{ 'ALL_USERS_LOADED' | translate }}</p>
+	</div>
+</div>
+
+<transfer-modal id="transferModal" callback="transferSubmissions">{{ 'SELECT_USER_TO_TRANSFER' | translate: { user_name: transfer_info.name } }}</transfer-modal>

@@ -1,0 +1,19 @@
+<form name="form" novalidate>
+	<div class="box">
+		<div class="title">
+			Remover texto
+		</div>
+
+		<div class="content">
+			<div class="alert alert-success" ng-show="showMessage == 'success'">O texto foi removido com sucesso.</div>
+
+			<div ng-hide="showMessage">
+				<p>Você tem certeza que deseja remover este texto?</p>
+
+				<div class="submit_container">
+					<button ng-click="deleteText()" type="submit" class="btn btn-primary">Enviar</button>
+					<a href="#/configs" class="btn btn-default">Cancelar</a>
+				</div>
+			</div>
+	</div>
+</form>

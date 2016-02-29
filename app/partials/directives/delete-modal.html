@@ -1,0 +1,24 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{ 'MODAL_CONFIRM_REMOVAL' | translate }}</h4>
+			</div>
+
+			<div class="modal-body">
+				<p ng-transclude></p>
+
+				<div class="form-group has-error">
+					<label class="control-label" for="inputDelete">{{ 'MODAL_CONFIRM_REMOVAL_DESC' | translate }}</label>
+					<input type="text" class="form-control" ng-model="delete" id="inputDelete">
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'MODAL_CANCEL' | translate }}</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal" ng-disabled="!(delete.toLowerCase() == 'deletar' || delete.toLowerCase() == 'delete')" ng-click="delete_a()">{{ 'MODAL_REMOVE' | translate }}</button>
+			</div>
+		</div>
+	</div>
+</div>

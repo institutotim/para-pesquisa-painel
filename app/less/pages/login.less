@@ -1,0 +1,177 @@
+body.login {
+	background: @deep-blue;
+}
+
+@box-width: 500px;
+@box-height: 170px;
+
+.login {
+	.container {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: -(@box-width / 2);
+		margin-top: -(@box-height / 2);
+	}
+
+	.box {
+		.size(@box-width, @box-height);
+		margin: 0 auto;
+		background: @grey;
+
+		.clearfix();
+		.border-radius(5px);
+		.box-shadow(~"0 2px 0 #2c3e50");
+
+		// Other div's
+		.infos {
+			.make-sm-column(4);
+			background: lighten(@darker-grey, 14%);
+			padding: 20px;
+			text-align: center;
+			height: 100%;
+
+			.border-radius(5px 0 0 5px);
+
+			img {
+				max-width: 100px;
+			}
+
+			h1 {
+				font-size: 15px;
+				margin-right: -10px;
+
+				// Arrow
+				&:before {
+					content: '';
+					float: right;
+					position: relative;
+					right: -10px;
+					width: 0; 
+					height: 0; 
+					border-top: 10px solid transparent;
+					border-bottom: 10px solid transparent; 
+					border-right:10px solid @grey;
+				}
+			}
+		}
+		
+		.inputs {
+			.make-sm-column(8);
+			padding: 20px;
+
+			.border-radius(0 5px 5px 0);
+
+			// Personalized inputs
+			.input-group.email input {
+				border-bottom: 0px;
+				border-right: 0px;
+				margin-bottom: 0px;
+				color: #999;
+
+				.border-radius(4px 0 0 0);
+				.box-shadow(~"");
+				.transition(~"300ms");
+			}
+
+			.input-group.password input {
+				border-top: 0px;
+				border-right: 0px;
+				margin-top: 0px;
+				color: #999;
+
+				.border-radius(0 0 0 4px);
+				.box-shadow(~"");
+				.transition(~"300ms");
+			}
+
+			.divider {
+				border-top: 1px solid #CCC;
+			}
+
+			// We must change the :focus style, so it doesn't get a weird felling of overlapping
+			.input-group.email input:focus, .input-group.password input:focus {
+				border-color: darken(#CCC, 20%);
+				outline: 0;
+				color: #555;
+
+				.box-shadow(~"");
+			}
+
+			.input-group.email input:focus + .input-group-addon, .input-group.password input:focus + .input-group-addon {
+				border-color: darken(#CCC, 20%);
+				color: #555;
+			}
+
+			// Then let's style the "user" and "password" icons! ;D
+			.input-group.email .input-group-addon, .input-group.password .input-group-addon {
+				.box-sizing(border-box);
+				padding: @padding-base-vertical @padding-base-horizontal;
+				font-size: @font-size-base;
+				font-weight: normal;
+				line-height: @line-height-base;
+				text-align: center;
+				background-color: #FFF;
+				border: 1px solid @input-group-addon-border-color;
+				color: #999;
+
+				.border-radius(0 0 0 0);
+				.box-shadow(~"");
+				.transition(~"300ms");
+			}
+
+			.input-group.email .input-group-addon {
+				border-left: 0px;
+				border-bottom: 0px;
+				.border-radius(0 4px 0 0);
+			}
+
+			.input-group.password .input-group-addon {
+				border-left: 0px;
+				border-top: 0px;
+
+				.border-radius(0 0 4px 0);
+			}
+		}
+
+		&.not_found {
+			display: table;
+			text-align: center;
+			padding: 20px;
+
+			p {
+				font-size: 18px;
+				display: table-cell;
+				vertical-align: middle;
+				color: #000;
+				background: #FFF;
+				border-radius: 6px;
+			}
+		}
+	}
+
+	.credits {
+		width: 500px;
+		margin: 0 auto;
+		margin-top: 20px;
+	
+
+		img {
+			max-width: 60px;
+			margin-left: 10px;
+			float: right;
+		}
+
+		p {
+			font-size: 9px;
+			color: #FFF;
+			margin-top: -10px;
+			text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+
+			a {
+				color: #FFF;
+				text-decoration: underline;
+			}
+		}
+	}
+}

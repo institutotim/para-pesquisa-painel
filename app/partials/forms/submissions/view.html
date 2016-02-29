@@ -1,0 +1,53 @@
+<div class="box submissions">
+	<div class="title">
+		{{ 'SURVEYS_DETAILS' | translate}}
+
+		<a href="#/forms/edit/{{form.id}}/submissions" class="btn btn-warning pull-right">{{ 'BACK' | translate}}</a>
+
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="content">
+		<a href="" ng-click="hideUnansweredQuestions()" class="btn btn-warning btn-block hide_unanswered_fields">{{ 'HIDE_UNANSWERED_QUESTIONS' | translate}}</a>
+
+		<div class="clearfix" style="margin-top: 10px;"></div>
+
+		<div ng-repeat="section in form.sections | orderBy:orderPredicate">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{section.name}}</h3>
+				</div>
+				<div class="panel-body">
+
+					<div class="panel panel-info field" ng-repeat="field in section.fields | orderBy: orderPredicate" ng-hide="field.read_only == true">
+						<div class="panel-heading">
+							<h3 class="panel-title">{{ field.label }}</h3>
+						</div>
+						<div class="panel-body">
+							<div class="field_content" ng-bind-html-unsafe="getAnswerByFieldId(field.id) | toList"></div>
+
+							<div ng-show="getAnswerByFieldId(field.id) == ''"><span class="label label-danger">{{ 'UNANSWERED' | translate}}</span></div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<sidebar>
+	<div class="sidemenu">
+		<div class="content">
+			<div class="list-group">
+				<div href="#" class="list-group-item active">
+					<h4 class="list-group-item-heading">{{ 'EXTRA_DATA' | translate}}</h4>
+				</div>
+				<div class="list-group-item" ng-repeat="field in form.sections[0].fields" ng-show="field.read_only == true">
+					<h4 class="list-group-item-heading">{{ field.label }}</h4>
+					<p class="class="list-group-item-text"" ng-bind-html-unsafe="getAnswerByFieldId(field.id) | toList"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</sidebar>

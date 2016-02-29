@@ -1,0 +1,56 @@
+<div class="box">
+	<div class="title">
+		{{ 'USERS' | translate }}
+
+		<a href="#/users/create" class="btn btn-default btn-header"><span class="glyphicon glyphicon-plus"></span></a>
+
+		<form class="inline-form" ng-submit="fetchUsers(true)">
+			<div class="input-group search">
+				<input type="text" class="form-control" ng-model="q" placeholder="{{ 'SEARCH' | translate }}">
+
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div>
+		</form>
+	</div>
+
+	<div class="content">
+		<table class="table custom table-striped table-hover" infinite-scroll="fetchUsers()" infinite-scroll-distance="2">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>{{ 'NAME' | translate }}</th>
+					<th>{{ 'USER' | translate }}</th>
+					<th>{{ 'RANK' | translate }}</th>
+					<th>{{ 'CREATED_AT' | translate }}</th>
+					<th style="width: 22%"></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat="user in users">
+					<td>{{ user.id }}</td>
+					<td>{{ user.name }}</td>
+					<td>{{ user.username }}</td>
+					<td>{{ user.role | roleName | translate }}</td>
+					<td>{{ user.created_at | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+					<td>
+						<div class="btn-group">
+							<a href="#/users/edit/{{ user.id }}" class="btn btn-info" rel="tooltip" title="{{ 'EDIT' | translate }}"><span class="glyphicon glyphicon-edit"></span></a>
+							<a href="#/users/edit/{{ user.id }}/statistics" class="btn btn-info" rel="tooltip" title="{{ 'VIEW_STATISTICS' | translate }}"><span class="glyphicon glyphicon-stats"></span></a>
+							<a class="btn btn-info" rel="tooltip" title="{{ 'REMOVE' | translate }}" data-toggle="modal" ng-click="selectUserToDelete(user.id)"><span class="glyphicon glyphicon-trash"></span></a></li>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p class="scrolling_status" ng-show="waiting">{{ 'LOADING_USERS' | translate }}</p>
+		<p class="scrolling_status" ng-show="end">{{ 'LOADED_USERS' | translate }}</p>
+	</div>
+</div>
+
+<delete-modal id="deleteModal" callback="deleteUser()">{{ 'DELETE_USER_CONFIRM' | translate }}</delete-modal>

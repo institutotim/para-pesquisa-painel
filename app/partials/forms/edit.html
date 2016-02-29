@@ -1,0 +1,636 @@
+<div class="create_forms">
+	<div class="box">
+		<div class="paging">
+			<div class="all_steps">
+				<div class="step" ng-class="{disabled: current_page != 'page_one'}" ng-click="toPage('page_one')">
+					<span><div class="glyphicon glyphicon-cog"></div></span>
+
+					<p>{{ 'FORM_SETTINGS' | translate }}</p>
+				</div>
+
+				<hr class="disabled" />
+
+				<div class="step" ng-class="{disabled: current_page != 'page_two'}" ng-click="toPage('page_two')">
+					<span><div class="glyphicon glyphicon-pencil"></div></span>
+
+					<p>{{ 'IMPORT_DATA' | translate }}</p>
+				</div>
+
+				<hr class="disabled" />
+
+				<div class="step" ng-class="{disabled: current_page != 'page_three'}" ng-click="toPage('page_three')">
+					<span><div class="glyphicon glyphicon-user"></div></span>
+
+					<p>{{ 'ADD_USERS' | translate }}</p>
+				</div>
+
+				<hr class="disabled" />
+
+				<div class="step" ng-class="{disabled: current_page != 'page_four'}" ng-click="toPage('page_four')">
+					<span><div class="glyphicon glyphicon-ok"></div></span>
+
+					<p>{{ 'CREATE_QUESTIONS' | translate }}</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="content">
+
+			<!-- Configuration -->
+			<div id="page_one" ng-show="current_page == 'page_one'">
+
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="inputTitle">{{ 'FORM_TITLE' | translate }}</label>
+							<input type="text" ng-model="form.name" class="form-control" id="inputTitle" placeholder="{{ 'PICK_NAME' | translate }}" ng-blur="saveForm()" />
+						</div>
+
+						<div class="form-group">
+							<label for="inputEnd">{{ 'CLOSING_DATE' | translate }}</label>
+
+							<div class="input-group">
+								<input type="text" ng-model="form.pub_end" class="form-control" ng-disabled="!end" id="inputEnd" ui-date="dateOptions" ui-date-format translate-ui-date />
+								<span class="input-group-addon">
+									<input type="checkbox" ng-model="end" />
+								</span>
+							</div>
+						</div>
+
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="form.allow_transfer"> {{ 'ALLOW_TRANSFERS' | translate }}
+							</label>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="inputPublishing">{{ 'PUBLISHING_DATE' | translate }}</label>
+
+							<div class="input-group">
+								<input type="text" ng-model="form.pub_start" class="form-control" ng-disabled="!publishing" id="inputPublishing" ui-date="dateOptions" ui-date-format translate-ui-date />
+								<span class="input-group-addon">
+									<input type="checkbox" ng-model="publishing" />
+								</span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputReasons">{{ 'RESCHEDULE_REASONS' | translate }}</label>
+
+							<div class="clearfix"></div>
+
+							<button class="btn btn-warning btn-block" id="inputReasons" ng-click="showAddReasons()">{{ 'SET_REASONS' | translate }}</button>
+						</div>
+
+						<div class="checkbox">
+							<label>
+								<input id="requires_approval" type="checkbox" ng-model="form.requires_approval" ng-blur="saveForm()">
+								<label for="requires_approval">{{ 'REQUIRES_APPROVAL' | translate }}</label>
+							</label>
+						</div>
+					</div>
+				</div>
+
+				<a class="btn btn-info pull-right" ng-click="nextPage()">{{ 'NEXT' | translate }}</a>
+
+				<div class="clearfix"></div>
+
+				<!-- Show reasons modal -->
+				<div class="modal fade" id="reasons_modal" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title">{{ 'ADD_RESCHEDULE_REASONS' | translate }}</span></h4>
+							</div>
+
+							<div class="modal-body">
+								<div ng-show="form.stop_reasons.length">
+									<ul class="list-group">
+										<li class="list-group-item" ng-repeat="reason in form.stop_reasons">
+											<span class="badge badge-danger" style="cursor: pointer" ng-click="deleteReason(reason)"><span class="glyphicon glyphicon-remove"></span></span>
+											{{ reason.reason }} <span class="label label-primary">{{ reason.reschedule | rescheduleText | translate }}</span>
+										</li>
+									</ul>
+								</div>
+
+								<form ng-submit="addReason()">
+									<div class="input-group">
+										<input type="text" class="form-control" ng-model="reasonName" required>
+										<span class="input-group-btn">
+											<button class="btn btn-info" type="submit">{{ 'ADD' | translate }}</button>
+										</span>
+									</div>
+
+									<p style="margin-top: 10px;">{{ 'ACTION_WHEN_SELECTED' | translate }}</p>
+
+									<div class="checkbox">
+										<label>
+											<input type="radio" ng-model="reasonReschedule" value="true" /> {{ 'RESCHEDULE' | translate }}
+										</label>
+									</div>
+
+									<div class="checkbox">
+										<label>
+											<input type="radio" ng-model="reasonReschedule" value="false" /> {{ 'CANCEL' | translate }}
+										</label>
+									</div>
+								</form>
+							</div>
+
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">{{ 'CLOSE' | translate }}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div ng-show="current_page == 'page_two' && form.allow_new_submissions == true">
+				<div class="alert alert-info">{{ 'UNABLE_TO_EDIT_CSV' | translate }}</div>
+
+				<a class="btn btn-info" ng-click="prevPage()">{{ 'BACK' | translate }}</a>
+				<a class="btn btn-info pull-right" ng-click="nextPage()">{{ 'NEXT' | translate }}</a>
+
+				<div class="clearfix"></div>
+			</div>
+
+			<!-- data wizard -->
+			<div id="page_two" ng-show="current_page == 'page_two' && (form.allow_new_submissions == false || form.allow_new_submissions == null)" class="import">
+				<p>{{ 'IMPORT_DESC' | translate }}</p>
+
+				<p>{{ 'IMPORT_DESC_OBS' | translate }}</p>
+
+				<p><a class="btn btn-info btn-xs" ng-click="showCSVInstructions()" href="">{{ 'READ_HERE_HOW' | translate }}</a></p>
+
+				<div ng-show="showImportOptions == false">
+					<p class="big">{{ 'SEND_A_FILE' | translate }}</p>
+
+					<div class="send_file" ng-hide="importing">
+						<label for="send_csv" class="btn btn-primary">{{ 'SEND_FILE' | translate }}</label>
+						<input type="file" ng-file-select="sendFile($files)" accept=".csv" style="display:none;" id="send_csv" />
+					</div>
+
+					<div class="send_file" ng-show="importing">
+						{{ 'LOADING_WITH_ELLIPSIS' | translate }}
+					</div>
+
+					<p class="big">{{ 'OR' | translate }}</p>
+
+					<div class="go_next">
+						<a class="btn btn-info" ng-click="nextPage()">{{ 'CONTINUE_WITH_PROCESS' | translate }}</a>
+					</div>
+
+					<div class="go_back">
+						<a class="btn btn-info btn-xs" ng-click="prevPage()">{{ 'BACK' | translate }}</a>
+					</div>
+				</div>
+
+				<div ng-show="showImportOptions == true && showImportLog == false">
+					<div class="import_option">
+						<h1>{{ 'SELECT_TITLE' | translate }}</h1>
+
+						<div class="content">
+							<p>{{ 'SELECT_TITLE_DESC' | translate }}</p>
+
+							<select ng-model="csv.current_identifier" class="form-control" ng-options="e as e for e in csv.headers">
+								<option value="">--</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="import_option">
+						<h1>{{ 'SELECT_GROUPING' | translate }}</h1>
+
+						<div class="content">
+							<p>{{ 'SELECT_GROUPING_DESC' | translate }}</p>
+
+							<select ng-model="csv.current_substitution" class="form-control" ng-options="e as e for e in csv.headers">
+								<option value="">--</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="import_option">
+						<h1>{{ 'SELECT_USER_COLUMN' | translate }}</h1>
+
+						<div class="content">
+							<p>{{ 'SELECT_USER_COLUMN_DESC' | translate }}</p>
+
+							<select ng-model="csv.current_grouping" class="form-control" ng-options="e as e for e in csv.headers">
+								<option value="">--</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<a class="btn btn-info" ng-click="prevPage()">{{ 'BACK' | translate }}</a>
+					<a class="btn btn-info pull-right" ng-click="saveCsv()">{{ 'NEXT' | translate }}</a>
+
+					<div class="clearfix"></div>
+				</div>
+
+				<div ng-show="showImportLog">
+					<div class="panel panel-danger" ng-hide="errors.length() == 0">
+						<div class="panel-heading">{{ 'IMPORT_ERRORS' | translate }}</div>
+						<div class="panel-body failed_imports">
+
+							<ul>
+								<div ng-repeat="errors in failed_imports">
+									<li ng-repeat="error in errors">
+									{{ 'LINE' | translate }}: {{ error.line }}: {{ error.error | csvMessages }}
+									</li>
+								</div>
+							</ul>
+
+						</div>
+					</div>
+
+					<div class="panel panel-success">
+						<div class="panel-heading">{{ 'SUCCESSFUL_IMPORTS' | translate }}</div>
+						<div class="panel-body successful_imports">
+							<ul>
+								<div ng-repeat="successes in successful_imports">
+									<li ng-repeat="success in successes">
+									{{ 'USER_ID' | translate }}: {{ success.user_id }}
+									</li>
+								</div>
+							</ul>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<a class="btn btn-info" ng-click="prevPage()">{{ 'BACK' | translate }}</a>
+					<a class="btn btn-info pull-right" ng-click="nextPage()">{{ 'NEXT' | translate }}</a>
+
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="clearfix"></div>
+			</div>
+
+			<div id="page_three" ng-show="current_page == 'page_three'" class="set_users">
+				<h1>{{ 'ADD_RESEARCHERS' | translate }}</h1>
+				<p>{{ 'ADD_RESEARCHERS_DESC' | translate }}</p>
+
+				<div class="list_users">
+					<div class="form-group">
+						<label for="inputUsers">{{ 'LINK_RESEARCHER' | translate }}</label>
+
+						<div>
+							<input type="text" class="form-control" id="inputUsers" placeholder="{{ 'WRITE_RESEARCHER_NAME' | translate }}" />
+						</div>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+
+				<div ng-show="assignments" class="users_table">
+					<table class="table custom">
+						<thead>
+							<tr>
+								<td>#</td>
+								<td>{{ 'NAME' | translate }}</td>
+								<td style="width: 30%">{{ 'NUMBER_OF_SURVEYS' | translate }}</td>
+								<td style="width: 30%">{{ 'LINK_COORDINATOR' | translate }}</td>
+								<td>{{ 'REMOVE' | translate }}</td>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr ng-repeat="assignment in assignments" assignment-item>
+								<td><img user-avatar avatar="assignment.user.avatar" class="toggle_tooltip" data-toggle="tooltip" title="{{ assignment.user.name }}" style="width: 50px;height: 50px;"></td>
+								<td>{{ assignment.user.name }}</td>
+								<td>
+									<input type="number" min="0" max="{{ form.quota }}" class="form-control" ng-model="assignment.quota" ng-disabled="form.allow_new_submissions == false" ng-blur="updateAssignmentQuota(assignment)" integer>
+								</td>
+								<td>
+									<input type="text" value="{{ assignment.moderator.name }}" class="form-control changeMod">
+								</td>
+								<td>
+									<a href="" ng-click="deleteAssignment(assignment)"><span class="glyphicon glyphicon-remove"></span></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="clearfix"></div>
+
+				<a class="btn btn-info" ng-click="prevPage()">{{ 'BACK' | translate }}</a>
+				<a class="btn btn-info pull-right" ng-click="nextPage()">{{ 'NEXT' | translate }}</a>
+
+				<div class="clearfix"></div>
+			</div>
+
+			<!-- form making -->
+			<div id="page_four" ng-show="current_page == 'page_four'">
+				<div class="scroller_anchor"></div>
+				<div class="inputs_options">
+					<a class="btn btn-default pull-right" ng-click="addSection()">{{ 'ADD_PAGINATION' | translate }}</a>
+
+					<ul class="nav nav-tabs">
+						<li ng-repeat="tab in tabs" ng-class="{active: tabs[current_tab] == tab}" >
+							<a ng-click="changeTab(tab)" href="">{{ tab | translate }}</a>
+						</li>
+					</ul>
+
+					<div class="inputs_list" ng-repeat="tab in tabs" ng-show="tabs[current_tab] == tab">
+
+						<div class="item" ng-repeat="item in tab_items[current_tab]" name="{{ item.type }}" item-draggable>{{ item.type | formTypeName | translate }}</div>
+
+						<div class="clearfix"></div>
+					</div>
+				</div>
+
+				<ul class="pages" id="sortable_pages">
+					<li class="page" ng-repeat="section in form.sections | orderBy:orderPredicate" id="page_{{ form.sections.indexOf(section) }}">
+						<h1 ng-hide="section.showSectionTitleInput" ng-click="toggleEditSectionTitle(section)">{{ section.name }}</h1>
+						<form ng-show="section.showSectionTitleInput" class="edit_title" style="width: 90%" >
+							<input type="text" placeholder="{{ section.name }}" ng-model="section.name" focus-me="section.focusEditSectionTitle" ng-blur="toggleEditSectionTitle(section)" style="width: 100%" />
+						</form>
+
+						<div class="drag">
+							<span class="glyphicon glyphicon-resize-vertical"></span>
+						</div>
+
+						<div class="delete" ng-click="deleteSection(section)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div class="content" item-droppable="page">
+							<ol class="list-items">
+								<li ng-repeat="field in section.fields | orderBy:orderPredicate" id="item_{{ section.fields.indexOf(field) }}" input-item ng-class="{hide: field.read_only == true}">
+									<div class="number"></div>
+
+									<div class="li-content" ng-class="{label_field: field.type == 'LabelField'}">
+										<span>{{ field.type | formTypeName | translate }}</span>{{ field.label }}
+									</div>
+
+									<div class="li-actions">
+										<a class="pull-right" href="" ng-click="deleteItem(field)" rel="tooltip" data-toggle="tooltip" title="{{ 'FIELD_REMOVE' | translate }}"><span class="glyphicon glyphicon-remove"></span></a>
+										<a class="pull-right" href="" style="margin-right: 5px;" ng-click="copyItem(field)" rel="tooltip" data-toggle="tooltip" title="{{ 'FIELD_DUPLICATE' | translate }}"><span class="glyphicon glyphicon-new-window"></span></a>
+									</div>
+
+									<div class="clearfix"></div>
+
+									<!-- Show options modal -->
+									<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="updateItem()">&times;</button>
+													<h4 class="modal-title">{{ 'ADD_FIELDS_FOR' | translate }} <span ng-bind="field.label"></span></h4>
+												</div>
+
+												<div class="modal-body" ng-hide="hide_editing_options">
+
+													<div class="form-inline pull-right" style="margin-bottom: 10px;">
+														<div class="form-group">
+															<select class="form-control" ng-model="selected_inject_option">
+																<option value="none" selected> -- {{ 'SELECT_PRESET_MODEL' | translate }} -- </option>
+																<option value="br_states">{{ 'BRAZILIAN_STATES' | translate }}</option>
+															</select>
+														</div>
+
+														<a class="btn btn-primary" ng-click="injectOptions()">{{ 'INSET' | translate }}</a>
+													</div>
+
+													<div class="clearfix"></div>
+
+													<div class="well" ng-show="field.options.length">
+														<ul class="options_sortable" style="padding: 0px;">
+															<li class="btn-group btn-block option_item" style="margin: 3px;" ng-repeat="value in field.options" id="option_{{ field.options.indexOf(value) }}">
+																<div class="btn btn-default"><span class="glyphicon glyphicon-move"></span></div>
+																<button type="button" class="btn btn-default" ng-bind="value.label"></button>
+																<button type="button" class="btn btn-default" ng-click="editOption(value)">
+																	<span class="glyphicon glyphicon-pencil"></span>
+																</button>
+																<button type="button" class="btn btn-default" ng-click="deleteOption(value)">
+																	<span class="glyphicon glyphicon-remove"></span>
+																</button>
+															</li>
+														</ul>
+													</div>
+
+													<form ng-submit="addOption()">
+														<div class="input-group">
+															<input type="text" class="form-control" ng-model="valueName" required>
+															<span class="input-group-btn">
+																<button class="btn btn-info" type="submit">{{ 'ADD' | translate }}</button>
+															</span>
+														</div>
+													</form>
+
+													<a class="btn btn-primary btn-block" ng-click="hide_editing_options = true" style="margin-top: 10px;">{{ 'EDIT_AVAILABLE' | translate }}</a>
+												</div>
+
+												<div class="modal-body" ng-show="hide_editing_options">
+													<a class="btn btn-success pull-right" ng-click="hide_editing_options = false">{{ 'BACK_TO_LIST' | translate }}</a>
+
+													<h3 class="pull-left" style="margin: 0px;">{{ 'ADD_NEW_LOGIC' | translate }}</h3>
+
+													<div class="clearfix"></div>
+
+													<div class="form-group">
+														<label>{{ 'SELECT_OPTIONS' | translate }}</label>
+
+														<select multiple class="form-control" ng-options="obj.value as obj.label for obj in field.options" ng-model="action_selected_options">
+
+														</select>
+													</div>
+
+													<div class="form-group">
+														<label>{{ 'SELECT_FIELDS_TO_BE_DEACTIVATED' | translate }}</label>
+
+														<select multiple class="form-control" ng-options="obj.id as obj.label for obj in available_fields | hideExtraData" ng-model="action_selected_disable_fields">
+
+														</select>
+													</div>
+
+													<a class="btn btn-primary pull-right" ng-click="addAction()">{{ 'ADD_LOGIC' | translate }}</a>
+
+													<div class="clearfix"></div>
+
+													<div ng-show="field.actions.length">
+														<h3>{{ 'AVAILABLE_LOGICS' | translate }}</h3>
+
+														<p>{{ 'AVAILABLE_LOGICS_DESC' | translate }}</p>
+
+														<p> {{ 'LABELS' | translate }} <span class="label label-success">{{ 'ACTIVE' | translate }}</span> <span class="label label-danger">{{ 'DEACTIVE' | translate }}</span></p>
+
+														<br />
+													</div>
+
+													<div ng-repeat="action in field.actions">
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<h3 class="panel-title">{{ 'LOGIC' | translate }} #{{ field.actions.indexOf(action) + 1 }} <span ng-click="removeAction(action)" style="cursor:pointer;" class="glyphicon glyphicon-remove pull-right"></h3>
+															</div>
+
+															<div class="panel-body">
+																<p class="pull-left" ng-repeat="field in action.enable">
+																	<span class="label label-success">{{ getFieldLabelById(field) }}</span>
+																</p>
+
+																<div class="clearfix"></div>
+
+																<p class="pull-left" ng-repeat="field in action.disable">
+																	<span class="label label-danger">{{ getFieldLabelById(field) }}</span>
+																</p>
+
+																<div class="clearfix"></div>
+
+																<ul class="list-group">
+																	<li class="list-group-item" style="margin-bottom: 0px;" ng-repeat="option in action.when">{{ option }}</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="modal-footer">
+													<button type="button" ng-click="updateItem()" class="btn btn-default" data-dismiss="modal">{{ 'CLOSE' | translate }}</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</li>
+				</ul>
+
+				<!-- Template for popover -->
+				<div id="input_popover_template_title" style="display: none;">
+					{{ 'EDIT_FIELD' | translate }} <span ng-bind="field.label | cut:false:15"></span> {{ field.label }} <span ng-click="closePopover()" style="cursor:pointer;" class="glyphicon glyphicon-remove pull-right"></span>
+				</div>
+
+				<div id="input_popover_template" style="display: none;">
+					<div class="form-group">
+						<label>{{ 'FIELD_NAME' | translate }}</label>
+						<input type="text" class="form-control" ng-model="field.label"/>
+					</div>
+
+					<div class="form-group">
+						<label>{{ 'DESC' | translate }}</label>
+						<textarea type="text" class="form-control" ng-model="field.description" /></textarea>
+					</div>
+
+					<div class="form-group">
+						<label>{{ 'FIELD_TYPE' | translate }}</label>
+						<div ng-bind="field.type | formTypeName | translate"></div>
+					</div>
+
+					<div class="form-group">
+						<label>{{ 'OPTIONS' | translate }}</label>
+
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="required" ng-change="toggleRequired()"> {{ 'REQUIRED' | translate }}
+							</label>
+						</div>
+
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="identifier" ng-change="toggleIdentifier()"> {{ 'IDENTIFIER' | translate }}
+							</label>
+						</div>
+
+						<div class="checkbox" ng-show="field.type | showOptionsBtn">
+							<label>
+								<input type="checkbox" ng-model="hasOther" ng-change="toggleHasOther()"> {{ 'ACTIVATE_OPTIONS' | translate }}
+							</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>{{ 'LAYOUT_TYPE' | translate }}</label>
+						<select ng-model="field.layout" class="form-control" ng-options="obj.type as obj.name | translate for obj in available_layouts">
+							<option value="">-- {{ 'SELECT_A_LAYOUT' | translate }} --</option>
+						</select>
+					</div>
+
+					<div class="btn btn-primary btn-block" ng-show="field.type | showOptionsBtn" ng-click="showAddOptions()">{{ 'ADD_OPTIONS' | translate }}</div>
+				</div>
+
+				<div class="clearfix"></div>
+
+				<a class="btn btn-info" ng-click="prevPage()">{{ 'BACK' | translate }}</a>
+
+				<div class="clearfix"></div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="csv_instructions">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{ 'CSV_IMPORT_TITLE' | translate }} <a type="button" class="btn btn-success btn-xs" ng-href="{{ 'CSV_LINK' | translate }}" target="_blank">{{ 'DOWNLOAD_CSV' | translate }}</a></h4>
+			</div>
+
+			<div class="modal-body">
+				<p>{{ 'CSV_IMPORT_DESC' | translate }}</p>
+
+				<h4>{{ 'CSV_IMPORT_PART1' | translate }}</h4><br />
+				<p>{{ 'CSV_IMPORT_PART1_DESC_1' | translate }}</p>
+
+				<h5>{{ 'EXAMPLE' | translate }}</h5>
+				<p>{{ 'CSV_IMPORT_PART1_DESC_2' | translate }}</p>
+
+				<blockquote>{{ 'CSV_IMPORT_PART1_DESC_3' | translate }}<br />
+				{{ 'CSV_IMPORT_PART1_DESC_4' | translate }}<br />
+				{{ 'CSV_IMPORT_PART1_DESC_5' | translate }}<br /></blockquote>
+
+				<p>{{ 'CSV_IMPORT_PART1_DESC_6' | translate }}</p>
+
+				<p>{{ 'CSV_IMPORT_PART1_DESC_7' | translate }}</p>
+
+				<h4>{{ 'CSV_IMPORT_PART2' | translate }}</h4>
+				<p>{{ 'CSV_IMPORT_PART2_DESC_1' | translate }}</p>
+
+				<h5>{{ 'EXAMPLE' | translate }}</h5>
+				<p>{{ 'CSV_IMPORT_PART2_DESC_2' | translate }}</p>
+
+				<h4>{{ 'CSV_IMPORT_PART3' | translate }}</h4>
+				<p>{{ 'CSV_IMPORT_PART3_DESC1' | translate }}</p>
+
+				<h5>{{ 'EXAMPLE' | translate }}</h5>
+				<p>{{ 'CSV_IMPORT_PART3_DESC2' | translate }}</p>
+
+				<h4>{{ 'CSV_IMPORT_PART4' | translate }}</h4>
+				<p>{{ 'CSV_IMPORT_PART4_DESC1' | translate }}</p>
+
+				<h5>{{ 'EXAMPLE' | translate }}</h5>
+				<p>{{ 'CSV_IMPORT_PART4_DESC2' | translate }}
+				<ul>
+				<li>{{ 'CSV_IMPORT_PART4_DESC3' | translate }}</li>
+				<li>{{ 'CSV_IMPORT_PART4_DESC4' | translate }}</li>
+				<li>{{ 'CSV_IMPORT_PART4_DESC5' | translate }}</li>
+				</ul>
+				<p>{{ 'CSV_IMPORT_PART4_DESC6' | translate }}</p>
+
+				<h4>{{ 'CSV_IMPORT_PART5' | translate }}</h4><br />
+				<p>{{ 'CSV_IMPORT_PART5_DESC1' | translate }}</p>
+
+				<p><a type="button" class="btn btn-success btn-xs" ng-href="{{ 'CSV_LINK' | translate }}" target="_blank">{{ 'DOWNLOAD_CSV' | translate }}</a></p>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,17 @@
+
+{
+  "GLOBAL_STATISTICS": "Global statistics",
+  "FROM_SURVEY": "Statistics for the survey \"{{ form_name }}\"",
+  "FROM_USER_WITH_SURVEY": "Statistics for the user \"{{ user_name }}\" in the survey \"{{ form_name }}\"",
+  "FROM_USER": "Statistics for the user \"{{ user_name }}\" (All surveys)",
+  "STATUS_APPROVED": "approved",
+  "STATUS_PENDING_APPROVAL": "pending approval",
+  "STATUS_PENDING_CORRECTION": "pending correction",
+  "STATUS_PENDING_RESCHEDULE": "rescheduled",
+  "STATUS_CANCELED": "canceled",
+  "TOTAL_ANSWERS": "Total of surveys",
+  "TOTAL_COMPLETED_ANSWERS": "Total of completed surveys",
+  "TOTAL_NOT_STARTED_ANSWERS": "Total of unanswered surveys",
+  "TOTAL_SURVEYS": "Total of formularies",
+  "TOTAL_USERS": "Total of users"
+}

@@ -1,0 +1,9 @@
+{
+  "LOGIN_ERROR": "The provided data are incorrect.",
+  "TITLE": "Agentes da Transformação",
+  "USERNAME": "Username",
+  "PASSWORD": "Password",
+  "ENTER": "Login",
+  "SUPPORT": "Support from TIM Brasil.",
+  "LICENSE": "This software is <a href=\"#\">open-source</a>, free of charge, to any person obtaining a copy of this software and associated documentation files."
+}

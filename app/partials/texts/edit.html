@@ -1,0 +1,48 @@
+<form name="form" novalidate>
+	<div class="box">
+		<div class="title">
+			Editar texto {{ text.title }}
+		</div>
+
+		<div class="content">
+			<div class="alert alert-success" ng-show="showMessage == 'success'">O texto #{{ text.id }} foi atualizado/criado com sucesso.</div>
+			<div class="alert alert-danger" ng-show="showMessage == 'error'">Houve um erro ao atualizar/criar o usuário.</div>
+
+			<div class="form-group">
+				<label for="inputTitle">Título</label>
+				<input type="text" class="form-control" id="inputTitle" placeholder="Entre com o título" ng-model="text.title" name="uTitle" required>
+
+				<div ng-show="form.uTitle.$dirty && form.Title.$invalid" class="panel panel-danger" style="margin-top: 10px">
+					<div class="panel-heading">Inválido</div>
+					<div class="panel-body">
+						<span ng-show="form.uTitle.$error.required">Escreva um título.</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputSubtitle">Subtítulo</label>
+				<input type="text" class="form-control" ng-model="text.subtitle" id="inputSubtitle" placeholder="Entre com o subtítulo" name="uSubtitle" required>
+
+				<div ng-show="form.uSubtitle.$dirty && form.uSubtitle.$invalid" class="panel panel-danger" style="margin-top: 10px">
+					<div class="panel-heading">Inválido</div>
+					<div class="panel-body">
+						<span ng-show="form.uSubtitle.$error.required">Escreva um subtítulo.</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" tinymce>
+				<label for="inputContent">Conteúdo</label>
+				<textarea type="text" class="form-control" id="inputContent" placeholder="Entre com o conteúdo" name="uContent"></textarea>
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+
+		<div class="submit_container">
+			<button ng-disabled="form.$invalid || isUnchanged(user)" ng-click="send()" type="submit" class="btn btn-primary">Salvar</button>
+		</div>
+
+	</div>
+</form>

@@ -1,0 +1,112 @@
+<form name="form" novalidate>
+	<div class="box">
+		<div class="title" ng-show="updating">
+			{{ 'EDIT_USER' | translate: {username: user.name} }}
+		</div>
+
+		<div class="title" ng-hide="updating">
+			{{ 'ADD_USER' | translate }}
+		</div>
+
+		<div class="content">
+			<div class="alert alert-success" ng-show="showMessage == 'success'" translate="{{ 'USER_UPDATED' }}"></div>
+			<div class="alert alert-danger" ng-show="showMessage == 'error'">{{ 'USER_ERROR' | translate }}</div>
+
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="inputName">{{ 'NAME' | translate }}</label>
+					<input type="text" class="form-control" id="inputName" placeholder="{{ 'ENTER_NAME' | translate }}" ng-model="user.name" name="uName" required>
+
+					<div ng-show="form.uName.$dirty && form.uName.$invalid" class="panel panel-danger" style="margin-top: 10px">
+						<div class="panel-heading">{{ 'INVALID' | translate }}</div>
+						<div class="panel-body">
+							<span ng-show="form.uName.$error.required">{{ 'WIRTE_NAME' | translate }}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputUsername">{{ 'USER' | translate }}</label>
+					<input type="text" class="form-control" ng-model="user.username" id="inputUsername" placeholder="{{ 'ENTER_USERNAME' | translate }}" name="uUsername" required>
+
+					<div ng-show="form.uUsername.$dirty && form.uUsername.$invalid" class="panel panel-danger" style="margin-top: 10px">
+						<div class="panel-heading">{{ 'INVALID' | translate }}</div>
+						<div class="panel-body">
+							<span ng-show="form.uUsername.$error.required">{{ 'WIRTE_USERNAME' | translate }}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputEmail">{{ 'EMAIL' | translate }}</label>
+					<input type="email" class="form-control" ng-model="user.email" id="inputEmail" placeholder="{{ 'ENTER_EMAIL' | translate }}" name="uEmail">
+
+					<div ng-show="form.uEmail.$dirty && form.uEmail.$invalid" class="panel panel-danger" style="margin-top: 10px">
+						<div class="panel-heading">{{ 'INVALID' | translate }}</div>
+						<div class="panel-body">
+							<span ng-show="form.uEmail.$error.required">{{ 'WRITE_EMAIL' | translate }}</span>
+							<span ng-show="form.uEmail.$error.email">{{ 'INVALID_EMAIL' | translate }}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputRole">{{ 'RANK' | translate }}</label>
+
+					<select ng-model="user.role" class="form-control" id="inputRole" ng-options="obj.value as obj.name | translate for obj in available_roles" name="uRole" required>
+					</select>
+
+					<div ng-show="form.uRole.$dirty && form.uRole.$invalid" class="panel panel-danger" style="margin-top: 10px">
+						<div class="panel-heading">{{ 'INVALID' | translate }}</div>
+						<div class="panel-body">
+							<span ng-show="form.uRole.$error.required">{{ 'CHOOSE_A_RANK' | translate }}</span>
+						</div>
+					</div>
+				</div>
+
+				<div ng-switch="updating">
+					<div class="form-group" ng-switch-when="false">
+						<label for="inputPassword">{{ 'PASSWORD' | translate }}</label>
+						<input type="password" class="form-control" id="inputPassword" placeholder="{{ 'PASSWORD' | translate }}" ng-model="user.password" name="uPassword" required>
+
+						<div ng-show="form.uPassword.$dirty && form.uPassword.$invalid" class="panel panel-danger" style="margin-top: 10px">
+							<div class="panel-heading">{{ 'INVALID' | translate }}</div>
+							<div class="panel-body">
+								<span ng-show="form.uPassword.$error.required">{{ 'WIRTE_A_PASSWORD' | translate }}</span>
+							</div>
+						</div>
+					</div>
+
+				<div class="form-group" ng-switch-when="true">
+						<label for="inputPassword">{{ 'PASSWORD' | translate }} <span class="label label-info">{{ 'OPTIONAL' | translate }}</span></label>
+						<input type="password" class="form-control" id="inputPassword" placeholder="{{ 'PASSWORD' | translate }}" ng-model="user.password">
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 update_about">
+				<div class="avatar">
+					<div class="desc">
+						<label for="send_avatar" class="upload">{{ 'CHOOSE_AVATAR' | translate }}</label>
+						<span>{{ 'ALLOWED_FILES' | translate }}</span>
+						<input type="file" ng-file-select="onFileSelect($files)" accept=".jpg,.jpeg,.gif,.png" id="send_avatar">
+					</div>
+
+					<span id="avatar_edit" class="image" user-avatar avatar="user.avatar" type="background-image"></span>
+				</div>
+
+				<div class="infos">
+					<h1>{{ user.name }}</h1>
+					<h2>{{ user.username }}</h2>
+				</div>
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="submit_container">
+			<button ng-disabled="form.$invalid || isUnchanged(user)" ng-click="send()" type="submit" class="btn btn-primary">{{ 'SAVE' | translate }}</button>
+		</div>
+
+	</div>
+</form>

@@ -1,0 +1,138 @@
+.box.logs {
+	.title {
+		border-bottom: 0px;
+		box-shadow: none;
+	}
+	.title .btn-group {
+		text-shadow: none;
+	}
+
+	.title:before {
+		display: none;
+	}
+
+	.popover-title {
+		color: #555;
+	}
+
+	.popover-content {
+		color: #999;
+		font-size: 13px;
+	}
+
+	.timeline {
+		margin: 20px 0 0 80px;
+		border-left: 7px solid @decoration-color;
+		padding-bottom: 40px;
+
+		.results {
+			float: left;
+			margin: -10px 0 20px 0;
+
+			span {
+				.size(15px);
+				background: darken(@decoration-color, 9%);
+				.border-radius(40px);
+				display: block;
+				margin-left: -11px;
+				border: 1px solid darken(@darker-decoration-color, 3%);
+				float: left;
+
+				.gradient(~"linear-gradient(to bottom, rgba(255,255,255,0.30) 0%,rgba(250,219,216,0.1) 30%,rgba(231,76,60,0) 100%)");
+			}
+
+			p {
+				display: block;
+				margin: 0px;
+				float: left;
+				color: @decoration-color;
+				margin-left: 10px;
+			}
+		}
+
+		.load {
+			float: left;
+			margin: -10px 0 20px 0;
+
+			div {
+				.size(35px);
+				background: lighten(@decoration-color, 2%);
+				.border-radius(50px);
+				display: block;
+				margin-left: -21px;
+				float: left;
+				text-align: center;
+				display: table;
+				color: #FFF;
+
+				span {
+					top: 0px;
+					left: 1px;
+					display: table-cell;
+					vertical-align: middle;
+				}
+			}
+
+			p {
+				display: block;
+				margin: 0px;
+				float: left;
+				color: #666;
+				margin-left: 10px;
+				background: lighten(@grey, 1%);
+				padding: 9px;
+				.border-radius(6px);
+			}
+		}
+
+		.item {
+			margin-bottom: 30px;
+
+			.info {
+				margin: 5px 0 0 -92px;
+				float: left;
+
+				.date {
+					margin: 7px 10px 0 0;
+					float: left;
+					text-align: right;
+
+					h2 {
+						margin: 0px;
+						font: 23px 'Signika';
+						color: @decoration-color;
+					}
+
+					span {
+						font-size: 10px;
+					}
+				}
+
+				img {
+					width: 50px;
+					float: left;
+					.border-radius(50px);
+				}
+
+				&:after {
+					content: '';
+					display: block;
+					float: left;
+					width: 0;
+					height: 0;
+					border-top: 7px solid transparent;
+					border-bottom: 7px solid transparent;
+					border-right: 7px solid lighten(@grey, 3%);
+					margin: 18px 0 0 8px;
+				}
+			}
+
+			.text {
+				margin-left: 37px;
+				background: lighten(@grey, 3%);
+				padding: 22px;
+				.border-radius(6px);
+			}
+		}
+	}
+}

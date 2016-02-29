@@ -1,0 +1,20 @@
+{
+  "GENERAL_CONFIG_TITLE": "Configurações Gerais",
+  "APP_CONFIG_TITLE": "Configurações do aplicativo",
+  "UPLOAD_IMAGE": "Enviar nova imagem",
+  "REMOVE_IMAGE": "Remover imagem",
+  "SUCCESSFUL_CONFIGURATION": "Configurações atualizadas com sucesso.",
+  "FAILED_CONFIGURATION": "Oops! Erro ao atualizar.",
+  "HEADER_LINE_1": "Linha de título 1:",
+  "HEADER_LINE_2": "Linha de título 2:",
+  "SUBMIT": "Salvar",
+  "TABLE_TITLE": "Título",
+  "TABLE_SUBTITLE": "Subtítulo",
+  "EN_LANG": "Inglês",
+  "PT_LANG": "Português Brasileiro",
+  "CHOOSE_LANG": "Escolha o idioma",
+  "TEXTS": "Textos",
+  "SEARCH": "Procurar...",
+  "EDIT": "Editar",
+  "REMOVE": "Remover"
+}

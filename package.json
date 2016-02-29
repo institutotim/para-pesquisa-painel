@@ -1,0 +1,50 @@
+{
+  "name": "upp-admin",
+  "version": "0.1.0",
+  "description": "A UPP Social admin application",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "bower": "^1.3.12",
+    "gulp-ng-constant": "^0.2.0",
+    "karma-chrome-launcher": "^0.1.0",
+    "karma-jasmine": "^0.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^7.0.0",
+    "del": "^1.1.1",
+    "gulp": "^3.8.10",
+    "gulp-browserify": "^0.5.0",
+    "gulp-concat": "^2.4.2",
+    "gulp-jshint": "^1.9.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglifyjs": "^0.5.0",
+    "nodemon": "~1.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panchodev/upp-admin.git"
+  },
+  "keywords": [
+    "upp-admin",
+    "upp",
+    "admin"
+  ],
+  "author": "panchodev <hello@ntxdev.com.br>",
+  "contributors": [
+    {
+      "name": "Luiz Filipe Freitas Carneiro",
+      "email": "luizfilipefc@gmail.com"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/panchodev/upp-admin/issues"
+  },
+  "homepage": "https://github.com/panchodev/upp-admin"
+}

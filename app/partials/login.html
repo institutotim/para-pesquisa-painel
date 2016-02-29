@@ -1,0 +1,39 @@
+<div class="container">
+	<div class="alert alert-danger" ng-show="loginError">{{ 'LOGIN_ERROR' | translate }}</div>
+
+	<div class="box">
+		<div class="infos">
+			<img src="img/rio.jpg" />
+
+			<h1>{{ 'TITLE' | translate }}</h1>
+		</div>
+
+		<div class="inputs">
+			<form ng-submit="login()">
+				<div class="form-group">
+					<div class="input-group email">
+						<input type="text" data-ng-model="username" class="form-control" placeholder="{{ 'USERNAME' | translate }}" id="inputEmail">
+						<label for="inputEmail" class="input-group-addon"><i class="glyphicon glyphicon-user"></i></label>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="input-group password">
+						<input type="password" data-ng-model="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}" id="inputPassword">
+						<label for="inputPassword" class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></label>
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-default btn-lg btn-block">{{ 'ENTER' | translate }}</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="credits">
+		<img src="img/tim.png">
+
+		<p>{{ 'SUPPORT' | translate }}</p>
+		<p translate="{{ 'LICENSE' }}"></p>
+	</div>
+
+</div>

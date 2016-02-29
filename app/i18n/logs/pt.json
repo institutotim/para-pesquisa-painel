@@ -1,0 +1,16 @@
+{
+	"LOGS": "Consulta de histórico (log do sistema)",
+	"PERIOD": "Período",
+	"BY_USER": "Por usuário",
+	"SEARCH_USER": "Procurar pesquisador...",
+	"RESULS": "resultados encontrados",
+	"WITH_MOTIVE": "com o motivo",
+	"OF_USER": "do usuário",
+	"LOADING_FEED": "Carregando feed...",
+	"ALL_LOADED": "Todas as entradas foram carregadas.",
+	"TODAY": "Hoje",
+	"THIS_WEEK": "Esta semana",
+	"THIS_MONTH": "Este mês",
+	"THIS_YEAR": "Este ano",
+	"FILTER_ALL": "Todos"
+}

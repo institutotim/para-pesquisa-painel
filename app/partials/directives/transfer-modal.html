@@ -1,0 +1,28 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{ 'TRANSFER_SURVEYS' | translate }}</h4>
+			</div>
+
+			<div class="modal-body" ng-hide="success">
+				<p ng-transclude></p>
+
+				<p>
+					<input type="text" class="form-control" ng-model="q" placeholder="{{ 'SEARCH_USER' | translate }}">
+				</p>
+
+				<p>
+					<ul class="list-group">
+						<li class="list-group-item" ng-repeat="user in users | filter:q" ng-click="transfer(user.id)" style="cursor: pointer">{{ user.name }} <span class="label label-default">{{ user.role | roleName | translate }}</span> </li>
+					</ul>
+				</p>
+			</div>
+
+			<div class="modal-body" ng-show="success">
+			<div class="alert alert-success">{{ 'DONE_TRANSFER' | translate }}</div>
+			</div>
+		</div>
+	</div>
+</div>
