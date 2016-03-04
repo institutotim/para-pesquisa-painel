@@ -112,7 +112,7 @@ gulp.task('minify-css', function () {
         pipe(gulp.dest('./app/dist/css/'));
 });
 
-gulp.task('browserify', ['copyDepsAndDistFiles'], function () {
+gulp.task('browserify', ['copyDepsAndDistFiles', 'minify-css'], function () {
     var bundleName = isProduction ? 'upp-social.js' :
                      'upp-social-bundle.js';
     return gulp.src('./app/js/app.js').
