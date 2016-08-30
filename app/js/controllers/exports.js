@@ -86,7 +86,6 @@ module.exports = [
 
                                 setTimeout(function() {
                                     update();
-                                    console.log('wow');
                                 }, 6000);
                             },
                             error: function() {
@@ -99,7 +98,7 @@ module.exports = [
             });
         };
 
-        // Start this shit!
+        // Start export 
         NProgress.start();
         $rootScope.showLoading = true;
         update();
